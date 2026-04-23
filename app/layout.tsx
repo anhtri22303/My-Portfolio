@@ -9,8 +9,16 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Professional CV | Portfolio",
-  description: "Professional curriculum vitae and portfolio website",
+  title: "Chau Ngoc Anh Tri | Front-End Developer Portfolio",
+  description:
+    "Professional portfolio of Chau Ngoc Anh Tri - Front-End Developer specializing in React, Next.js, TypeScript, and modern web technologies.",
+  keywords: [
+    "Front-End Developer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Portfolio",
+  ],
 };
 
 export default function RootLayout({
@@ -19,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         {children}
       </body>

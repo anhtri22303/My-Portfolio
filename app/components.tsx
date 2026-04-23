@@ -1,0 +1,204 @@
+"use client";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+
+// ===== Animation Variants =====
+export const fadeInUp = {
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+};
+
+export const staggerContainer = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { staggerChildren: 0.15 } },
+};
+
+// ===== Data =====
+export const navItems = [
+  { id: "about", label: "About" },
+  { id: "education", label: "Education" },
+  { id: "projects", label: "Projects" },
+  { id: "resume", label: "Experience" },
+  { id: "contact", label: "Contact" },
+];
+
+export const projects = [
+  {
+    id: 1, title: "E-commerce Platform", date: "2023",
+    description: "A full-featured e-commerce platform built with Next.js and Node.js",
+    tech: ["Next.js", "Node.js", "MongoDB", "AWS"],
+    images: ["/project1-1.webp", "/project1-2.webp", "/project1-3.webp"],
+    link: "https://github.com/username/project1",
+  },
+  {
+    id: 2, title: "Social Media Dashboard", date: "2022",
+    description: "Real-time social media analytics dashboard with data visualization",
+    tech: ["React", "D3.js", "Firebase", "Material-UI"],
+    images: ["/project2-1.webp", "/project2-2.webp", "/project2-3.webp"],
+    link: "https://github.com/username/project2",
+  },
+  {
+    id: 3, title: "AI-Powered Task Manager", date: "2021",
+    description: "Smart task management system with AI-driven prioritization",
+    tech: ["Python", "TensorFlow", "FastAPI", "React"],
+    images: ["/project3-1.webp", "/project3-2.webp", "/project3-3.webp"],
+    link: "https://github.com/username/project3",
+  },
+];
+
+export const skillGroups = [
+  {
+    title: "Frontend Development",
+    items: ["React.js / Next.js", "TypeScript / JavaScript", "HTML5 / CSS3", "Tailwind CSS / SASS", "Redux / Context API"],
+  },
+  {
+    title: "Backend Development",
+    items: ["Spring Boot", "Node.js / Express.js", "RESTful APIs", "MongoDB / PostgreSQL", "Docker"],
+  },
+];
+
+export const experiences = [
+  {
+    period: "2024 - 2025", role: "Front-End Developer", company: "Software Architecture and Design",
+    points: [
+      "Designed and developed a responsive front-end for a billiard scoring system, enhancing user experience for both casual and professional players.",
+      "Integrated real-time scoring updates and smooth UI animations, improving usability and reducing user errors by 70%.",
+      "Collaborated with back-end developers and UX designers, while mentoring interns and conducting code reviews to ensure maintainable and high-quality code.",
+    ],
+  },
+  {
+    period: "2024 - 2025", role: "Front-End Developer", company: "Software Development Project",
+    points: [
+      "Developed and maintained multiple React-based web applications",
+      "Implemented RESTful APIs using Node.js and Express",
+      "Optimized database queries resulting in 40% performance improvement",
+    ],
+  },
+  {
+    period: "2023 - 2024", role: "Full Stack Developer", company: "Software Development Project",
+    points: [
+      "Developed and maintained multiple React-based web applications",
+      "Implemented RESTful APIs using Node.js and Express",
+      "Optimized database queries resulting in 40% performance improvement",
+    ],
+  },
+];
+
+// ===== Sub-Components =====
+
+export function ThemeToggle({ isDark, toggle }: { isDark: boolean; toggle: () => void }) {
+  return (
+    <motion.button
+      whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+      onClick={toggle} aria-label="Toggle theme"
+      className="w-10 h-10 rounded-full flex items-center justify-center border transition-colors"
+      style={{ borderColor: "var(--border-color)", color: "var(--text-secondary)" }}
+    >
+      {isDark ? (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+          <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      ) : (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      )}
+    </motion.button>
+  );
+}
+
+export function FloatingOrbs() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute top-20 -left-20 w-48 sm:w-72 h-48 sm:h-72 rounded-full blur-3xl animate-float" style={{ background: "var(--accent)", opacity: "var(--orb-opacity)" }} />
+      <div className="absolute top-40 -right-10 w-56 sm:w-96 h-56 sm:h-96 rounded-full blur-3xl animate-float-slow" style={{ background: "#8b5cf6", opacity: "var(--orb-opacity)" }} />
+      <div className="absolute -bottom-20 left-1/4 sm:left-1/3 w-52 sm:w-80 h-52 sm:h-80 rounded-full blur-3xl animate-float-reverse" style={{ background: "#06b6d4", opacity: "var(--orb-opacity)" }} />
+    </div>
+  );
+}
+
+export function ScrollToTop({ show }: { show: boolean }) {
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.button
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="scroll-to-top fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-50 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shadow-lg transition-colors"
+          style={{ background: "var(--accent)", color: "white" }}
+          whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd"/>
+          </svg>
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+}
+
+export function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.h2 variants={fadeInUp} className="playfair text-3xl sm:text-4xl md:text-5xl mb-8 sm:mb-12 section-heading" style={{ color: "var(--text-primary)" }}>
+      {children}
+    </motion.h2>
+  );
+}
+
+export function GlassCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return <div className={`glass-card p-4 sm:p-6 ${className}`}>{children}</div>;
+}
+
+export function TimelineItem({ period, title, subtitle, children }: { period: string; title: string; subtitle: string; children: React.ReactNode }) {
+  return (
+    <motion.div variants={fadeInUp} className="relative pl-8 border-l-2 group" style={{ borderColor: "var(--border-color)" }}>
+      <div className="glow-dot absolute w-3 h-3 rounded-full -left-[7px] top-1" style={{ background: "var(--accent)" }} />
+      <div className="space-y-2">
+        <span className="text-sm font-medium" style={{ color: "var(--accent-light)" }}>{period}</span>
+        <h3 className="text-xl font-semibold" style={{ color: "var(--text-primary)" }}>{title}</h3>
+        <p style={{ color: "var(--text-secondary)" }}>{subtitle}</p>
+        {children}
+      </div>
+    </motion.div>
+  );
+}
+
+export function ProjectGallery({
+  project, imageIndex, setImageIndex, onPrev, onNext
+}: {
+  project: typeof projects[0]; imageIndex: number;
+  setImageIndex: (i: number) => void; onPrev: () => void; onNext: () => void;
+}) {
+  return (
+    <div className="relative">
+      <motion.div
+        key={`${project.id}-${imageIndex}`}
+        initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="relative aspect-video rounded-xl sm:rounded-2xl overflow-hidden"
+        style={{ border: "1px solid var(--border-color)", boxShadow: "var(--card-shadow)" }}
+      >
+        <Image src={project.images[imageIndex]} alt={`${project.title} screenshot ${imageIndex + 1}`} fill className="object-cover" />
+      </motion.div>
+      <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2">
+        {project.images.map((_, i) => (
+          <button key={i} onClick={() => setImageIndex(i)}
+            className="h-2 rounded-full transition-all duration-300"
+            style={{
+              width: imageIndex === i ? "24px" : "8px",
+              background: imageIndex === i ? "var(--accent)" : "var(--text-tertiary)",
+            }}
+          />
+        ))}
+      </div>
+      <button onClick={onPrev} className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-md flex items-center justify-center text-white transition-colors" style={{ background: "rgba(0,0,0,0.4)" }}>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+      </button>
+      <button onClick={onNext} className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-md flex items-center justify-center text-white transition-colors" style={{ background: "rgba(0,0,0,0.4)" }}>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"/></svg>
+      </button>
+    </div>
+  );
+}

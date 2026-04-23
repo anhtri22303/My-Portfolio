@@ -2,20 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Theme Custom Properties ===== */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+  /* Dark theme as default */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #111118;
+  --bg-tertiary: #16161d;
+  --bg-card: rgba(22, 22, 29, 0.6);
+  --bg-card-hover: rgba(30, 30, 40, 0.8);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-color-hover: rgba(255, 255, 255, 0.12);
+  --accent: #6366f1;
+  --accent-hover: #818cf8;
+  --accent-light: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.2);
+  --accent-glow-strong: rgba(99, 102, 241, 0.4);
+  --nav-bg: rgba(10, 10, 15, 0.85);
+  --nav-border: rgba(255, 255, 255, 0.06);
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: 0 20px 40px -8px rgba(0, 0, 0, 0.5);
+  --input-bg: rgba(22, 22, 29, 0.8);
+  --orb-opacity: 0.12;
+  --gradient-text: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4, #6366f1);
+}
+
+html.light {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-card-hover: rgba(255, 255, 255, 0.9);
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-color-hover: rgba(0, 0, 0, 0.15);
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-light: #818cf8;
+  --accent-glow: rgba(99, 102, 241, 0.12);
+  --accent-glow-strong: rgba(99, 102, 241, 0.25);
+  --nav-bg: rgba(248, 250, 252, 0.85);
+  --nav-border: rgba(0, 0, 0, 0.06);
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+  --card-shadow-hover: 0 20px 40px -8px rgba(0, 0, 0, 0.12);
+  --input-bg: #ffffff;
+  --orb-opacity: 0.06;
+  --gradient-text: linear-gradient(135deg, #4f46e5, #7c3aed, #0891b2, #4f46e5);
+}
+
+/* ===== Base Styles ===== */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: #f0f2f0;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+/* ===== Typography ===== */
 .playfair {
   font-family: var(--font-playfair);
 }
 
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg-primary);
+}
+
+/* ===== Selection ===== */
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* ===== Utility Classes ===== */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -23,15 +108,129 @@ body {
 }
 
 @layer components {
-  .social-link {
-    @apply text-gray-600 hover:text-black transition-colors duration-200;
+  /* Gradient animated text */
+  .gradient-text {
+    background: var(--gradient-text);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 6s ease infinite;
   }
 
-  .nav-link {
-    @apply text-gray-600 hover:text-black transition-colors duration-200 px-4 py-2;
+  /* Glass card effect */
+  .glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-color-hover);
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-4px);
+  }
+
+  /* Navigation link with underline animation */
+  .nav-link-anim {
+    position: relative;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+    padding: 0.5rem 0;
+  }
+
+  .nav-link-anim::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 1px;
+  }
+
+  .nav-link-anim:hover,
+  .nav-link-anim.active {
+    color: var(--text-primary);
+  }
+
+  .nav-link-anim:hover::after,
+  .nav-link-anim.active::after {
+    width: 100%;
+  }
+
+  /* Glow dot for timeline */
+  .glow-dot {
+    position: relative;
+  }
+
+  .glow-dot::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: var(--accent-glow-strong);
+    animation: pulse-glow 2.5s ease-in-out infinite;
+  }
+
+  /* Input styles */
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  .form-input::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  .form-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow), 0 0 20px var(--accent-glow);
+  }
+
+  /* Section heading accent */
+  .section-heading {
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-heading::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin-top: 12px;
   }
 }
 
+/* ===== Keyframes (referenced by Tailwind config) ===== */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+/* ===== Print Styles ===== */
 @media print {
 
   /* Hide navigation, buttons, and other non-essential elements */
@@ -39,7 +238,9 @@ body {
   button,
   .social-link,
   form,
-  footer {
+  footer,
+  .scroll-to-top,
+  .theme-toggle {
     display: none !important;
   }
 
@@ -48,6 +249,7 @@ body {
     background-color: white !important;
     color: black !important;
     box-shadow: none !important;
+    -webkit-text-fill-color: black !important;
   }
 
   /* Ensure all sections are visible and properly spaced */
