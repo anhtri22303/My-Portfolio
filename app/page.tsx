@@ -2,17 +2,25 @@
 import { motion, useScroll } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useEffect, useState, useCallback } from "react";
 import {
   fadeInUp, staggerContainer, navItems, projects, skillGroups, experiences,
-  ThemeToggle, FloatingOrbs, ScrollToTop, SectionHeading, GlassCard,
-  TimelineItem, ProjectGallery,
+  ThemeToggle, ScrollToTop, SectionHeading, GlassCard,
+  TimelineItem,
 } from "./components";
+
+const HeroScene = dynamic(() => import("./Scene3D").then((mod) => mod.HeroScene), {
+  ssr: false,
+  loading: () => null,
+});
+const ProjectsDecoration3D = dynamic(
+  () => import("./Scene3D").then((mod) => mod.ProjectsDecoration3D),
+  { ssr: false, loading: () => null }
+);
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("");
-  const [selectedProject, setSelectedProject] = useState(projects[0]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
@@ -33,8 +41,6 @@ export default function Home() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setCurrentImageIndex(0); }, [selectedProject]);
-
   const toggleTheme = useCallback(() => {
     setIsDark((prev) => {
       document.documentElement.classList.toggle("light", prev);
@@ -47,9 +53,6 @@ export default function Home() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     setMobileMenuOpen(false);
   };
-
-  const nextImage = () => setCurrentImageIndex((p) => (p === selectedProject.images.length - 1 ? 0 : p + 1));
-  const prevImage = () => setCurrentImageIndex((p) => (p === 0 ? selectedProject.images.length - 1 : p - 1));
 
   return (
     <main className="min-h-screen overflow-x-hidden" style={{ background: "var(--bg-primary)" }}>
@@ -99,11 +102,11 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 min-h-screen flex items-center overflow-hidden">
-        <FloatingOrbs />
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
+        <HeroScene />
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center hero-content">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-sm font-medium tracking-widest uppercase mb-4" style={{ color: "var(--accent-light)" }}>
-              Front-End Developer
+              Front-End Developer / Business Analyst
             </motion.p>
             <h1 className="playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-4 sm:mb-6 gradient-text leading-tight">
               Chau Ngoc<br />Anh Tri
@@ -145,10 +148,10 @@ export default function Home() {
           <motion.div variants={fadeInUp} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             <div className="space-y-5">
               <p className="leading-relaxed text-base sm:text-lg" style={{ color: "var(--text-secondary)" }}>
-                As a Front-End Developer with over 3 years of experience, I specialize in building scalable web applications using modern technologies. My expertise includes React, Node.js, TypeScript, Next.js and Spring Boot, with a strong focus on creating efficient and maintainable code.
+                As a Front-End Developer with 3+ years of experience, I build scalable, user-focused web applications with React, TypeScript, Next.js, and modern UI practices. I focus on clean, maintainable code, performance optimization, and smooth collaboration across teams to deliver reliable products.
               </p>
               <p className="leading-relaxed text-lg" style={{ color: "var(--text-secondary)" }}>
-                I have a proven track record of delivering complex projects, implementing microservices architectures, and optimizing application performance. I&apos;m passionate about clean code practices, agile methodologies, and staying current with emerging technologies.
+                As a Business Analyst with Japanese N3, I work on requirements gathering and documentation, and I am experienced in producing project artifacts such as SRS, user stories, and process flows. I have hands-on experience with diagrams (use case, sequence, activity, ERD) from project-based courses in software development, entrepreneurship, and software requirements.
               </p>
             </div>
             <div className="space-y-6">
@@ -178,12 +181,12 @@ export default function Home() {
           <SectionHeading>Education</SectionHeading>
           <motion.div variants={fadeInUp}>
             <GlassCard>
-              <TimelineItem period="2021 - 2026" title="Bachelor of Science in Computer Science" subtitle="FPT University">
+              <TimelineItem period="2023 - 2026" title="Bachelor of Information Technology" subtitle="FPT University HCM, Vietnam">
                 <ul className="list-disc list-inside space-y-1 mt-2" style={{ color: "var(--text-secondary)" }}>
-                  <li>Major: Computer Science</li>
-                  <li>Minor: Data Science</li>
-                  <li>GPA: 3.8/4.0</li>
-                  <li>Relevant Coursework: Data Structures, Algorithms, Database Systems, Web Development</li>
+                  <li>Major: Information Technology</li>
+                  <li>Minor: Software Engineering</li>
+                  <li>GPA: 2.8/4.0</li>
+                  <li>Relevant Coursework: Data Structures and Algorithms, Database Systems, Web Development, Software Development project, The UI/UX Design and more</li>
                 </ul>
               </TimelineItem>
             </GlassCard>
@@ -192,34 +195,74 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 sm:py-20 md:py-24 px-4 sm:px-6" style={{ background: "var(--bg-secondary)" }}>
-        <div className="max-w-6xl mx-auto">
+      <section id="projects" className="relative py-16 sm:py-20 md:py-24 px-4 sm:px-6 overflow-hidden" style={{ background: "var(--bg-secondary)" }}>
+        <ProjectsDecoration3D />
+        <div className="max-w-6xl mx-auto relative z-10">
           <motion.div initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.1 }} variants={staggerContainer}>
             <SectionHeading>Projects</SectionHeading>
+            <motion.p variants={fadeInUp} className="max-w-2xl text-sm sm:text-base" style={{ color: "var(--text-secondary)" }}>
+              Selected work focused on product quality, clean UX, and scalable architecture.
+            </motion.p>
           </motion.div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-            <ProjectGallery project={selectedProject} imageIndex={currentImageIndex} setImageIndex={setCurrentImageIndex} onPrev={prevImage} onNext={nextImage} />
-            <div className="space-y-6">
-              {projects.map((project) => (
-                <motion.div key={project.id} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
-                  onClick={() => setSelectedProject(project)}
-                  className="cursor-pointer rounded-2xl p-5 transition-all duration-300"
-                  style={{
-                    background: selectedProject.id === project.id ? "var(--bg-card-hover)" : "transparent",
-                    border: `1px solid ${selectedProject.id === project.id ? "var(--accent)" : "var(--border-color)"}`,
-                  }}>
-                  <span className="text-sm font-medium" style={{ color: "var(--accent-light)" }}>{project.date}</span>
-                  <h3 className="text-xl font-semibold mt-1" style={{ color: selectedProject.id === project.id ? "var(--text-primary)" : "var(--text-secondary)" }}>{project.title}</h3>
-                  <p className="mt-2 text-sm" style={{ color: "var(--text-tertiary)" }}>{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    {project.tech.map((t) => (
-                      <span key={t} className="px-2.5 py-1 rounded-full text-xs font-medium" style={{ background: "var(--accent-glow)", color: "var(--accent-light)" }}>{t}</span>
-                    ))}
+          <div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="project-card overflow-hidden"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <Image src={projects[0].images[0]} alt={`${projects[0].title} preview`} fill className="object-cover project-image" />
+                <div className="project-image-overlay" />
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                  <span className="project-pill">Featured</span>
+                  <span className="text-xs font-medium" style={{ color: "white" }}>{projects[0].date}</span>
+                </div>
+              </div>
+              <div className="p-5 sm:p-6">
+                <h3 className="text-xl sm:text-2xl font-semibold" style={{ color: "var(--text-primary)" }}>{projects[0].title}</h3>
+                <p className="mt-2 text-sm sm:text-base" style={{ color: "var(--text-secondary)" }}>{projects[0].description}</p>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {projects[0].tech.map((t) => (
+                    <span key={t} className="project-chip">{t}</span>
+                  ))}
+                </div>
+                <Link href={projects[0].link} target="_blank" className="project-link inline-flex items-center gap-2 mt-5 text-sm font-semibold">
+                  View Code <span aria-hidden="true">&#8594;</span>
+                </Link>
+              </div>
+            </motion.div>
+            <div className="grid gap-5">
+              {projects.slice(1).map((project) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="project-card grid sm:grid-cols-[160px_1fr] gap-4 overflow-hidden"
+                >
+                  <div className="relative aspect-[16/10] sm:aspect-auto sm:h-full overflow-hidden">
+                    <Image src={project.images[0]} alt={`${project.title} preview`} fill className="object-cover project-image" />
+                    <div className="project-image-overlay" />
                   </div>
-                  <Link href={project.link} target="_blank" className="inline-flex items-center gap-1 mt-3 text-sm font-medium transition-colors" style={{ color: "var(--accent)" }}
-                    onClick={(e) => e.stopPropagation()}>
-                    View Code <span className="transition-transform group-hover:translate-x-1">&#8594;</span>
-                  </Link>
+                  <div className="p-5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-medium" style={{ color: "var(--accent-light)" }}>{project.date}</span>
+                      <span className="project-pill project-pill-muted">Case Study</span>
+                    </div>
+                    <h3 className="mt-2 text-lg font-semibold" style={{ color: "var(--text-primary)" }}>{project.title}</h3>
+                    <p className="mt-2 text-sm" style={{ color: "var(--text-secondary)" }}>{project.description}</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {project.tech.map((t) => (
+                        <span key={t} className="project-chip">{t}</span>
+                      ))}
+                    </div>
+                    <Link href={project.link} target="_blank" className="project-link inline-flex items-center gap-2 mt-4 text-sm font-semibold">
+                      View Code <span aria-hidden="true">&#8594;</span>
+                    </Link>
+                  </div>
                 </motion.div>
               ))}
             </div>

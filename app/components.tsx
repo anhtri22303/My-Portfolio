@@ -1,6 +1,5 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
 
 // ===== Animation Variants =====
@@ -26,42 +25,43 @@ export const navItems = [
 
 export const projects = [
   {
-    id: 1, title: "E-commerce Platform", date: "2023",
-    description: "A full-featured e-commerce platform built with Next.js and Node.js",
-    tech: ["Next.js", "Node.js", "MongoDB", "AWS"],
-    images: ["/project1-1.webp", "/project1-2.webp", "/project1-3.webp"],
-    link: "https://github.com/username/project1",
+    id: 1, title: "Student Club Loyalty & Membership System (SCLMS)", date: "2026",
+    description: "Digital platform for managing university student club memberships, events, points, and rewards.",
+    tech: ["Next.js", "Spring Boot", "PostgreSQL", "Firebase", "RabbitMQ", "Upstash", "Vercel", "Railway"],
+    images: ["/uniclub1.webp", "/uniclub3.webp", "/univlub5.webp"],
+    link: "https://github.com/anhtri22303/uni-club.git",
   },
   {
-    id: 2, title: "Social Media Dashboard", date: "2022",
-    description: "Real-time social media analytics dashboard with data visualization",
-    tech: ["React", "D3.js", "Firebase", "Material-UI"],
-    images: ["/project2-1.webp", "/project2-2.webp", "/project2-3.webp"],
-    link: "https://github.com/username/project2",
+    id: 2, title: "GlowCorner’s website", date: "2025",
+    description: "website will focus on providing a personalized and engaging experience for users.",
+    tech: ["Next.js", "Spring Boot", "MongoDB", "Tailwind CSS", "Firebase", "Vercel", "AWS"],
+    images: ["/Swp1.webp", "/Swp2.webp", "/Swp3.webp"],
+    link: "https://github.com/anhtri22303/GlowCorner.git",
   },
   {
-    id: 3, title: "AI-Powered Task Manager", date: "2021",
-    description: "Smart task management system with AI-driven prioritization",
-    tech: ["Python", "TensorFlow", "FastAPI", "React"],
-    images: ["/project3-1.webp", "/project3-2.webp", "/project3-3.webp"],
-    link: "https://github.com/username/project3",
+    id: 3, title: "Billiard Club - Scoring System Web App", date: "2025",
+    description: "Scoring System Web App for Billiard Club, providing real-time score tracking, player statistics, and match history for billiard players.",
+    tech: ["Next.js", "NodeJs", "NestJs", "MongoDB", "Tailwind CSS", "Firebase", "Vercel", "AWS"],
+    images: ["/Swd1.webp", "/Swd2.webp", "/Swd3.webp"],
+    link: "https://github.com/anhtri22303/fe_web_ball_pooling.git",
   },
 ];
 
 export const skillGroups = [
   {
-    title: "Frontend Development",
-    items: ["React.js / Next.js", "TypeScript / JavaScript", "HTML5 / CSS3", "Tailwind CSS / SASS", "Redux / Context API"],
-  },
-  {
-    title: "Backend Development",
-    items: ["Spring Boot", "Node.js / Express.js", "RESTful APIs", "MongoDB / PostgreSQL", "Docker"],
+    title: "Tech Stack",
+    items: ["React.js / Next.js", "TypeScript / JavaScript", "HTML5 / CSS3", "Spring Boot", "Tailwind CSS / Shadcn UI", "Framer Motion",
+      "Redux / Zustand", "Vercel / Railway",   
+       "RESTful APIs", "MongoDB / PostgreSQL", "MySQL server", 
+       "Docker", "Firebase", "AWS / Upstash", "RabbitMQ", "Supabase", "Cloudinary",
+       "Git / GitHub", "Cursor", "Antivity", "Intellij IDEA", "Draw.io"
+      ],
   },
 ];
 
 export const experiences = [
   {
-    period: "2024 - 2025", role: "Front-End Developer", company: "Software Architecture and Design",
+    period: "2025 - 2026", role: "Front-End Developer - Mobile Developer", company: "Student Club Loyalty & Membership System (SCLMS)",
     points: [
       "Designed and developed a responsive front-end for a billiard scoring system, enhancing user experience for both casual and professional players.",
       "Integrated real-time scoring updates and smooth UI animations, improving usability and reducing user errors by 70%.",
@@ -69,15 +69,15 @@ export const experiences = [
     ],
   },
   {
-    period: "2024 - 2025", role: "Front-End Developer", company: "Software Development Project",
+    period: "2024 - 2025", role: "Front-End Developer", company: "Billiard Club - Scoring System Web App",
     points: [
-      "Developed and maintained multiple React-based web applications",
-      "Implemented RESTful APIs using Node.js and Express",
-      "Optimized database queries resulting in 40% performance improvement",
+      "Designed and developed a responsive front-end for a billiard scoring system, enhancing user experience for both casual and professional players.",
+      "Integrated real-time scoring updates and smooth UI animations, improving usability and reducing user errors by 70%.",
+      "Collaborated with back-end developers and UX designers, while mentoring interns and conducting code reviews to ensure maintainable and high-quality code.",
     ],
   },
   {
-    period: "2023 - 2024", role: "Full Stack Developer", company: "Software Development Project",
+    period: "2024 - 2025", role: "Front-End Developer", company: "GlowCorner - Ecommerce website",
     points: [
       "Developed and maintained multiple React-based web applications",
       "Implemented RESTful APIs using Node.js and Express",

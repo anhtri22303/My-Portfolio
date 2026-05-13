@@ -1,6 +1,39 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* ===== Tailwind v4 Theme (migrated from tailwind.config.ts) ===== */
+@theme {
+  --font-sans: var(--font-inter);
+
+  --color-sage-100: #f0f2f0;
+
+  --animate-gradient-shift: gradient-shift 6s ease infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 8s ease-in-out infinite;
+  --animate-float-reverse: float-reverse 7s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2.5s ease-in-out infinite;
+  --animate-bounce-gentle: bounce-gentle 2s ease-in-out infinite;
+  --animate-slide-up: slide-up 0.5s ease-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+}
+
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
 
 /* ===== Theme Custom Properties ===== */
 :root {
@@ -101,125 +134,194 @@ body {
 }
 
 /* ===== Utility Classes ===== */
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@utility text-balance {
+  text-wrap: balance;
 }
 
-@layer components {
-  /* Gradient animated text */
-  .gradient-text {
-    background: var(--gradient-text);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradient-shift 6s ease infinite;
-  }
-
-  /* Glass card effect */
-  .glass-card {
-    background: var(--bg-card);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    box-shadow: var(--card-shadow);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .glass-card:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--border-color-hover);
-    box-shadow: var(--card-shadow-hover);
-    transform: translateY(-4px);
-  }
-
-  /* Navigation link with underline animation */
-  .nav-link-anim {
-    position: relative;
-    color: var(--text-secondary);
-    transition: color 0.3s ease;
-    padding: 0.5rem 0;
-  }
-
-  .nav-link-anim::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-    border-radius: 1px;
-  }
-
-  .nav-link-anim:hover,
-  .nav-link-anim.active {
-    color: var(--text-primary);
-  }
-
-  .nav-link-anim:hover::after,
-  .nav-link-anim.active::after {
-    width: 100%;
-  }
-
-  /* Glow dot for timeline */
-  .glow-dot {
-    position: relative;
-  }
-
-  .glow-dot::before {
-    content: "";
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    background: var(--accent-glow-strong);
-    animation: pulse-glow 2.5s ease-in-out infinite;
-  }
-
-  /* Input styles */
-  .form-input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background: var(--input-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    color: var(--text-primary);
-    transition: all 0.3s ease;
-    outline: none;
-  }
-
-  .form-input::placeholder {
-    color: var(--text-tertiary);
-  }
-
-  .form-input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px var(--accent-glow), 0 0 20px var(--accent-glow);
-  }
-
-  /* Section heading accent */
-  .section-heading {
-    position: relative;
-    display: inline-block;
-  }
-
-  .section-heading::after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 3px;
-    background: var(--accent);
-    border-radius: 2px;
-    margin-top: 12px;
-  }
+/* ===== Component Classes ===== */
+/* Gradient animated text */
+.gradient-text {
+  background: var(--gradient-text);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 6s ease infinite;
 }
 
-/* ===== Keyframes (referenced by Tailwind config) ===== */
+/* Glass card effect */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-color-hover);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-4px);
+}
+
+/* Project cards */
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.project-card:hover {
+  border-color: var(--border-color-hover);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-4px);
+}
+
+.project-image {
+  transition: transform 0.6s ease;
+}
+
+.project-card:hover .project-image {
+  transform: scale(1.04);
+}
+
+.project-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+html.light .project-image-overlay {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40%, rgba(15, 23, 42, 0.55) 100%);
+}
+
+.project-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 10px 20px -12px var(--accent);
+}
+
+.project-pill-muted {
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--accent-light);
+  box-shadow: none;
+}
+
+.project-chip {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--accent-glow);
+  color: var(--accent-light);
+}
+
+.project-link {
+  color: var(--accent);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.project-link:hover {
+  color: var(--accent-hover);
+  transform: translateX(2px);
+}
+
+/* Navigation link with underline animation */
+.nav-link-anim {
+  position: relative;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.nav-link-anim::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 1px;
+}
+
+.nav-link-anim:hover,
+.nav-link-anim.active {
+  color: var(--text-primary);
+}
+
+.nav-link-anim:hover::after,
+.nav-link-anim.active::after {
+  width: 100%;
+}
+
+/* Glow dot for timeline */
+.glow-dot {
+  position: relative;
+}
+
+.glow-dot::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: var(--accent-glow-strong);
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+/* Input styles */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.form-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow), 0 0 20px var(--accent-glow);
+}
+
+/* Section heading accent */
+.section-heading {
+  position: relative;
+  display: inline-block;
+}
+
+.section-heading::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-top: 12px;
+}
+
+/* ===== Keyframes ===== */
 @keyframes gradient-shift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -228,6 +330,46 @@ body {
 @keyframes pulse-glow {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+/* ===== 3D Canvas Containers ===== */
+.hero-3d-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-3d-canvas canvas {
+  pointer-events: auto;
+}
+
+.projects-3d-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.projects-3d-canvas canvas {
+  pointer-events: auto;
+}
+
+/* Ensure hero content stays above 3D scene */
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Reduce 3D on mobile for performance */
+@media (max-width: 768px) {
+  .hero-3d-canvas {
+    opacity: 0.6;
+  }
+  .projects-3d-canvas {
+    display: none;
+  }
 }
 
 /* ===== Print Styles ===== */
