@@ -28,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
+      <body suppressHydrationWarning className={`${inter.variable} ${playfair.variable} font-sans`}>
         {children}
       </body>
     </html>

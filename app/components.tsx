@@ -63,25 +63,25 @@ export const experiences = [
   {
     period: "2025 - 2026", role: "Front-End Developer - Mobile Developer", company: "Student Club Loyalty & Membership System (SCLMS)",
     points: [
-      "Designed and developed a responsive front-end for a billiard scoring system, enhancing user experience for both casual and professional players.",
-      "Integrated real-time scoring updates and smooth UI animations, improving usability and reducing user errors by 70%.",
-      "Collaborated with back-end developers and UX designers, while mentoring interns and conducting code reviews to ensure maintainable and high-quality code.",
+      "Delivered responsive web and mobile UI for club membership, events, and rewards, aligning with business rules and user flows.",
+      "Implemented reusable UI components and state handling for points, QR check-ins, and notifications to improve consistency.",
+      "Partnered with BA and back-end teams to refine requirements, write clear tickets, and validate features with stakeholders.",
     ],
   },
   {
     period: "2024 - 2025", role: "Front-End Developer", company: "Billiard Club - Scoring System Web App",
     points: [
-      "Designed and developed a responsive front-end for a billiard scoring system, enhancing user experience for both casual and professional players.",
-      "Integrated real-time scoring updates and smooth UI animations, improving usability and reducing user errors by 70%.",
-      "Collaborated with back-end developers and UX designers, while mentoring interns and conducting code reviews to ensure maintainable and high-quality code.",
+      "Built a real-time scoring interface with match tracking, player stats, and history views for club staff and players.",
+      "Optimized UI flows and validation to reduce input errors and speed up referee operations during matches.",
+      "Coordinated API integration and QA feedback loops to ensure stable releases before tournaments.",
     ],
   },
   {
     period: "2024 - 2025", role: "Front-End Developer", company: "GlowCorner - Ecommerce website",
     points: [
-      "Developed and maintained multiple React-based web applications",
-      "Implemented RESTful APIs using Node.js and Express",
-      "Optimized database queries resulting in 40% performance improvement",
+      "Developed a storefront UI with product discovery, filters, and detailed pages optimized for conversion.",
+      "Integrated checkout flows and customer account features while maintaining responsive layouts.",
+      "Collaborated with designers to refine visual consistency and improve page performance metrics.",
     ],
   },
 ];
