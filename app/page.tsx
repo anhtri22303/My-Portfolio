@@ -313,12 +313,13 @@ export default function Home() {
               </a>
             ))}
             <ThemeToggle isDark={isDark} toggle={toggleTheme} />
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-              onClick={() => window.print()}
+            <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+              href="/CV/CV_Frontend_Developer_ChauNgocAnhTri.pdf"
+              download="CV_Frontend_Developer_ChauNgocAnhTri.pdf"
               className="px-5 py-2 rounded-full text-base font-medium text-white"
               style={{ background: "var(--accent)" }}>
               Download CV
-            </motion.button>
+            </motion.a>
           </div>
           {/* Mobile menu button */}
           <div className="flex items-center gap-3 md:hidden">
